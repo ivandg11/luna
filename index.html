@@ -283,33 +283,6 @@
         }
       }
 
-      /* Instruction tooltip - Añadido sin alterar otros estilos */
-      .instruction {
-        position: absolute;
-        bottom: -40px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(255, 255, 255, 0.8);
-        color: #573010;
-        padding: 5px 10px;
-        border-radius: 15px;
-        font-size: 16px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        animation: bounce 2s infinite;
-        pointer-events: none;
-        z-index: 100;
-      }
-
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateX(-50%) translateY(0);
-        }
-        50% {
-          transform: translateX(-50%) translateY(-5px);
-        }
-      }
-
       /* Responsiveness */
 
       @media (max-width: 800px) {
@@ -370,6 +343,21 @@
         height: 5px;
         accent-color: #573010;
       }
+      .pulse {
+        position: absolute;
+        left: 45%; /* Centra horizontalmente */
+        transform: translateX(-50%); /* Ajuste fino para centrado perfecto */
+        bottom: 3px; /* Coloca el elemento 20px debajo de su contenedor padre */
+
+        /* Estilos existentes */
+        background: #57301000;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s infinite;
+      }
     </style>
   </head>
   <body>
@@ -390,7 +378,11 @@
         <div class="front">
           <div class="message">
             <p>Para la niña más bonita que existe.</p>
+            <div class="pulse">
+              <div class="toca">👆👆</div>
+            </div>
           </div>
+
           <div class="stamp">
             <div class="heart">🤎</div>
           </div>
@@ -415,21 +407,17 @@
         </div>
         <div class="letter-hearts" id="hearts"></div>
       </div>
-      <div class="instruction" id="instruction">👆</div>
     </div>
 
     <script>
       const envelope = document.getElementById('envelope');
       const letter = document.getElementById('letter');
       const heartsContainer = document.getElementById('hearts');
-      const instruction = document.getElementById('instruction');
       let isOpen = false;
-
       envelope.addEventListener('click', () => {
         if (!isOpen) {
           // Abrir carta
           envelope.classList.add('open');
-          instruction.style.display = 'none';
           setTimeout(() => {
             letter.classList.add('show');
             createFloatingHearts();
@@ -440,12 +428,6 @@
           envelope.classList.remove('open');
           letter.classList.remove('show');
           isOpen = false;
-
-          // Mostrar instrucción nuevamente después de un tiempo
-          setTimeout(() => {
-            instruction.style.display = 'block';
-            instruction.textContent = '👆';
-          }, 1500);
 
           // Limpiar corazones
           heartsContainer.innerHTML = '';
@@ -468,7 +450,6 @@
           }, i * 200);
         }
       }
-
       const music = document.getElementById('bgMusic');
       const toggleButton = document.getElementById('musicToggle');
       const volumeControl = document.getElementById('volumeControl');
